@@ -1,0 +1,2046 @@
+# MASTER BUILD PROMPT — VIRAL IN 60 SECONDS
+## Complete Interactive Digital Safety Game | Production-Quality Web App
+
+You are acting as a senior game designer, frontend engineer, UI/UX designer, gameplay programmer, accessibility specialist, educational-content designer, and QA engineer.
+
+Your task is to DESIGN, BUILD, TEST, AND POLISH a complete, playable web application titled **VIRAL IN 60 SECONDS**.
+
+This is not a request for a concept, mockup, landing page, wireframe, design proposal, or tutorial. You must implement the actual application, including functional gameplay, interactive controls, game logic, content, scoring, settings, results, animations, and responsive layouts.
+
+Build the application in the current Google AI Studio app-building environment using the available project framework and tools. Inspect the existing project before modifying it. Preserve working functionality and use the existing framework where practical. If starting from an empty project, choose an appropriate modern web application stack supported by the environment.
+
+Do not merely describe what you would build. Build it.
+
+---
+
+# 1. PRODUCT IDENTITY AND PURPOSE
+
+## 1.1 Official game title
+
+VIRAL IN 60 SECONDS
+
+The title must always be spelled exactly as written above wherever the full game name appears.
+
+Official tagline:
+
+"Think fast. Check first. Share wisely."
+
+Short description:
+
+"A fast-paced digital safety game where every second counts and every share has consequences."
+
+Genre:
+- Arcade
+- Digital investigation
+- Educational simulation
+- Timed decision-making game
+
+Primary subject: Misinformation in the modern digital world.
+
+Target audience: Teenagers, students, and general audiences participating in digital safety education.
+
+Primary platform: Desktop and laptop web browsers, with full support for tablets and mobile phones.
+
+Primary session length: Approximately one to two minutes for a standard round, excluding optional menus and explanations.
+
+Primary design objective: Make players practise recognizing questionable information, evaluating evidence, and choosing responsible online actions through engaging gameplay.
+
+## 1.2 Core philosophy
+
+The game must never feel like a school worksheet disguised as an application.
+
+It should feel like a small, polished, commercially designed indie arcade game that happens to teach important digital safety skills.
+
+Players should feel:
+- Curious about the next post.
+- Pressured by a countdown without feeling unfairly punished.
+- Motivated to investigate suspicious claims.
+- Rewarded for thoughtful decisions.
+- Interested in replaying to improve their score.
+- More confident about checking information before sharing it.
+
+Educational content should emerge naturally from the game mechanics.
+
+Avoid long lectures, giant paragraphs during timed gameplay, unnecessary onboarding, excessive menus, generic AI-generated-looking interface elements, and pointless features that distract from the main loop.
+
+The complete experience must be usable by someone who has never seen the game before.
+
+---
+
+# 2. NON-NEGOTIABLE IMPLEMENTATION RULES
+
+Follow these rules throughout development.
+
+1. Every visible interactive element must have a working purpose.
+2. Every primary button must perform its advertised action.
+3. Every navigation item must navigate to a real screen or section.
+4. Every game answer must be evaluated by actual application logic.
+5. The timer must count down accurately and trigger a real end-of-round transition.
+6. The score displayed on screen must come from actual game state.
+7. Explanations must correspond to the selected scenario and correct answer.
+8. The results screen must use the actual performance recorded during the round.
+9. Settings must change the behavior of the application where applicable.
+10. Restarting must reset the correct state without creating duplicate timers or event listeners.
+11. Returning to the home screen must not leave an active game running in the background.
+12. The application must work without requiring a paid API or API key.
+13. The core game must not require an internet connection after its assets and code have loaded.
+14. All fictional posts, accounts, people, products, companies, and news events must be original and clearly fictional where appropriate.
+15. Do not falsely claim that an image, account, or headline is genuine or fabricated based solely on its visual appearance.
+16. Do not use fake loading screens that conceal missing functionality.
+17. Do not implement placeholder buttons that do nothing.
+18. Do not leave TODO comments for essential gameplay features.
+19. Do not replace a requested feature with a static illustration or nonfunctional visual imitation.
+20. Do not remove working features simply to make the implementation easier.
+21. Do not claim that a test passed unless the relevant behavior was actually checked.
+22. If an external dependency or browser limitation prevents a feature from working, implement a suitable fallback and document the limitation.
+
+Prioritize the following order:
+
+1. Correct functionality.
+2. Complete gameplay.
+3. Clear, accessible user experience.
+4. Visual quality.
+5. Performance and maintainability.
+6. Additional polish.
+
+A beautiful but nonfunctional application is a failed result.
+
+---
+
+# 3. ART DIRECTION AND VISUAL IDENTITY
+
+## 3.1 Overall aesthetic
+
+Create a polished digital arcade experience inspired by modern indie games, editorial graphics, internet culture, and professional interactive exhibition installations.
+
+The visual identity should combine:
+- Dark, sophisticated backgrounds.
+- Bright cyan interface accents.
+- Vivid red warning accents.
+- White typography.
+- Carefully restrained glitch effects.
+- Editorial-style social posts.
+- Crisp, readable information cards.
+- Smooth, purposeful transitions.
+- Small animated details that reward interaction.
+
+The interface should look intentionally art-directed, not like a generic dashboard generated from a standard component library.
+
+Avoid excessive gradients, glassmorphism on every surface, random glowing borders, unnecessary neon effects, excessive rounded cards, emoji replacing all icons, and oversized decorative graphics.
+
+Use visual effects selectively.
+
+The information presented to players must remain readable even when animations are active.
+
+## 3.2 Color system
+
+Use the following design tokens as the initial visual foundation.
+
+Background:
+- Primary background: #0B0D12
+- Secondary background: #11151D
+- Elevated surface: #171D27
+- Raised interactive surface: #202938
+
+Text:
+- Primary text: #F5F7FA
+- Secondary text: #A6B0BF
+- Muted text: #758195
+
+Accent:
+- Electric cyan: #50E6FF
+- Cyan hover: #83EEFF
+- Signal red: #FF4D5A
+- Deep red: #C93646
+- Success green: #73E0A0
+- Warning amber: #FFD166
+
+Use colors consistently.
+
+Cyan represents investigation, interaction, and neutral highlights.
+
+Red represents urgency, potentially risky decisions, and important warnings. Red must not automatically mean that a claim is false.
+
+Green represents a successful action or a verified conclusion supported by evidence.
+
+Amber represents uncertainty, caution, or an incomplete investigation.
+
+Do not communicate meaning through color alone. Combine color with text, icons, and clear labels.
+
+Store these colors as reusable CSS variables or equivalent design tokens.
+
+## 3.3 Typography
+
+Use a deliberate typographic hierarchy.
+
+Recommended direction:
+- A bold, condensed display font for the main title and large score displays.
+- A highly legible sans-serif font for body text and gameplay.
+- A monospace font for countdown numbers, timestamps, evidence IDs, and technical details.
+
+Possible font families include Space Grotesk, Inter, IBM Plex Mono, or suitable alternatives available to the application.
+
+Use locally available system fonts as fallbacks. Do not make the core experience dependent on an external font server.
+
+Typography must be consistent across all screens.
+
+Do not randomly mix unrelated font families.
+
+Avoid tiny body text, overly wide letter spacing in paragraphs, and all-uppercase text for lengthy explanations.
+
+The title can be expressive and oversized. Gameplay instructions and evidence must remain easy to read.
+
+## 3.4 Icons
+
+Use a consistent icon family, preferably Lucide or another supported, coherent vector icon set.
+
+Examples:
+- Search
+- Clock
+- Shield
+- Check circle
+- X circle
+- Alert triangle
+- External link
+- Message circle
+- Image
+- Flag
+- Trophy
+- Volume
+- Settings
+- Arrow left
+- Rotate clockwise
+- Pause
+- Play
+
+Do not mix unrelated icon styles.
+
+Do not use Unicode symbols as substitutes for important interface icons when a proper icon is available.
+
+Icons that perform actions must have accessible labels.
+
+## 3.5 Motion design
+
+Create a restrained motion language.
+
+Use:
+- Short fades for screen transitions.
+- Small upward movement when a card appears.
+- A subtle countdown pulse at important time thresholds.
+- A quick highlight when evidence is discovered.
+- Smooth score count-up animation after the round ends.
+- A clear success or error animation after an answer.
+- A satisfying final results reveal.
+
+Avoid constant shaking, excessive flashing, distracting parallax, and unnecessary spinning elements.
+
+Animations must respect the user's reduced-motion preference.
+
+All motion should be implemented using reliable browser-supported techniques.
+
+---
+
+# 4. APPLICATION ARCHITECTURE
+
+Implement the game as a coherent application with separate screens and reusable components.
+
+Required screens:
+
+1. Home screen.
+2. How-to-play screen or concise first-run tutorial.
+3. Mode selection screen.
+4. Active gameplay screen.
+5. Evidence investigation interface.
+6. Answer feedback state.
+7. Pause overlay.
+8. Round results screen.
+9. Post-round learning summary.
+10. Statistics and achievements screen.
+11. Settings screen.
+12. About and digital safety information screen.
+13. Optional content review or scenario information screen if it improves the experience.
+
+These screens must be reachable through a logical navigation structure.
+
+Do not force players to visit every screen before starting a round.
+
+The home screen should make the primary action obvious.
+
+The application should support the following navigation flow:
+
+HOME → SELECT MODE → READY → GAMEPLAY → RESULTS → PLAY AGAIN OR HOME
+
+Optional paths:
+
+HOME → STATISTICS
+
+HOME → SETTINGS
+
+HOME → HOW TO PLAY
+
+HOME → ABOUT
+
+During active gameplay:
+
+GAMEPLAY → PAUSE → RESUME
+
+GAMEPLAY → PAUSE → RESTART CONFIRMATION
+
+GAMEPLAY → PAUSE → EXIT CONFIRMATION
+
+Handle browser refreshes and navigation without creating broken state.
+
+Do not accidentally preserve an expired timer when a player returns to the home screen.
+
+---
+
+# 5. HOME SCREEN
+
+Build a distinctive, fully functional title screen.
+
+## 5.1 Main composition
+
+The title screen should include:
+
+- Game title: VIRAL IN 60 SECONDS.
+- Tagline: Think fast. Check first. Share wisely.
+- A short explanation of the game.
+- A prominent PLAY button.
+- A secondary HOW TO PLAY button.
+- A visible SETTINGS button.
+- A smaller STATISTICS button.
+- A small ABOUT or DIGITAL SAFETY button.
+
+Use strong visual hierarchy.
+
+The main title must be the most recognizable element.
+
+Create a subtle visual motif based on social-media notifications, information fragments, or a controlled digital feed. This can be achieved with CSS shapes, typography, and original UI elements rather than external imagery.
+
+Keep decorative elements away from the main buttons.
+
+The interface should feel finished even without a background illustration.
+
+## 5.2 Functional behavior
+
+PLAY opens mode selection or starts the default mode if that creates a better experience.
+
+HOW TO PLAY opens a concise tutorial.
+
+SETTINGS opens settings.
+
+STATISTICS opens the player's local records.
+
+ABOUT opens a short explanation of the game's purpose and educational limitations.
+
+If the user has previously played, display a small personalized greeting such as:
+
+"READY FOR ANOTHER ROUND?"
+
+If a personal record exists, display the actual record.
+
+Do not display invented records or pretend that the player has completed rounds they have not played.
+
+## 5.3 First-run experience
+
+The first launch should explain the rules quickly.
+
+Provide a short, skippable tutorial.
+
+The tutorial should teach players that:
+- They have 60 seconds.
+- They will investigate a series of fictional online posts.
+- They can inspect evidence before deciding.
+- Some posts are misleading, some are supported, and some are uncertain.
+- The goal is responsible judgment, not blindly guessing that everything is fake.
+- The round ends when the timer expires.
+
+Remember the tutorial completion preference locally if storage is available.
+
+Never make the tutorial impossible to skip.
+
+---
+
+# 6. GAME MODES
+
+Implement at least two functional modes.
+
+## 6.1 Standard Mode
+
+This is the default experience.
+
+Rules:
+- One 60-second round.
+- A sequence of short scenarios.
+- A single shared countdown.
+- Immediate feedback after each submitted answer.
+- A final score and performance summary.
+- A combination of misinformation detection and responsible decision-making.
+
+The round must end automatically at zero.
+
+The player must be able to start another round immediately after viewing results.
+
+## 6.2 Practice Mode
+
+Practice Mode allows players to learn without a countdown.
+
+Rules:
+- No countdown pressure.
+- Players may investigate evidence at their own pace.
+- Feedback is available after each answer.
+- Explanations may be slightly more detailed.
+- Progress through the scenario library.
+- Restarting a scenario must work correctly.
+
+Practice Mode should not modify the player's Standard Mode personal-best score.
+
+Track Practice Mode separately in statistics.
+
+## 6.3 Difficulty
+
+Implement three difficulty levels.
+
+EASY:
+- Clearer clues.
+- More obvious contextual contradictions.
+- Shorter explanations.
+- More generous investigation options.
+
+NORMAL:
+- Balanced difficulty.
+- Requires comparing at least two clues in some scenarios.
+- Includes plausible but misleading posts.
+
+HARD:
+- More ambiguous scenarios.
+- Subtle source-quality issues.
+- Misleading context.
+- Claims that cannot be conclusively verified from the provided evidence.
+- Greater emphasis on recognizing uncertainty.
+
+Difficulty must affect actual scenario selection or evidence complexity.
+
+Changing the difficulty must not merely change a label.
+
+Do not make Hard Mode depend on trick questions or arbitrary answers.
+
+A harder scenario should require better reasoning, not less fair information.
+
+---
+
+# 7. CORE GAMEPLAY LOOP
+
+This is the most important section of the entire application.
+
+Build the actual game, not a mockup of the game.
+
+## 7.1 Round initialization
+
+When a player starts Standard Mode:
+
+1. Confirm the selected difficulty.
+2. Create a fresh round state.
+3. Select a suitable sequence of scenarios.
+4. Reset the round score.
+5. Reset correct-answer and decision counters.
+6. Reset streak tracking.
+7. Reset investigation tracking.
+8. Reset the elapsed-time record.
+9. Initialize the countdown to 60 seconds.
+10. Start the countdown when the player is ready.
+11. Display the first scenario.
+
+The game must not start multiple countdowns if the player double-clicks START.
+
+Disable or guard repeated initialization while a round is starting.
+
+## 7.2 Scenario presentation
+
+Each scenario must display:
+
+- A fictional account name.
+- A profile image, generated avatar, or simple graphic identity.
+- A platform-like label or original fictional platform identity.
+- A post timestamp.
+- A headline or claim.
+- Supporting post text.
+- An image or product graphic if relevant.
+- Engagement counts where appropriate.
+- A clear question.
+- A visible action area.
+- A timer.
+- Current score.
+- Number of completed scenarios.
+- An accessible way to investigate available evidence.
+
+All accounts and platforms should be fictional or clearly presented as part of the game's simulated interface.
+
+Do not impersonate real people.
+
+Do not create fabricated posts that appear to be genuine announcements from real institutions.
+
+## 7.3 Primary answer actions
+
+Use three clear, distinct actions.
+
+VERIFY:
+Choose this when the player needs to inspect supporting information or determine whether a claim is adequately supported.
+
+SHARE:
+Choose this when the player believes the information is sufficiently reliable to share in the simulated scenario.
+
+FLAG:
+Choose this when the player identifies a reason to report the post or flag it for review.
+
+The game must evaluate these choices based on each scenario's specific context.
+
+Important: FLAG is not automatically correct for every false or questionable post. Some scenarios should reward further investigation, withholding judgment, or avoiding amplification rather than reporting immediately.
+
+The game must explain when a post is misleading, when a claim is supported, when context is missing, and when the evidence is insufficient to reach a firm conclusion.
+
+Do not teach players to treat popularity, confidence, polished graphics, or engagement counts as proof.
+
+## 7.4 Investigation mechanic
+
+Investigation must be a real gameplay mechanic.
+
+Players should be able to open an evidence panel, examine available clues, and return to the post without losing their progress.
+
+Evidence types include:
+
+- Source information.
+- Original publication date.
+- Image context.
+- Supporting or contradictory details.
+- Independent corroboration.
+- Missing context.
+- Product claims and seller information.
+- Account authenticity indicators.
+- Uncertainty notes.
+- Relevant corrections.
+
+Every clue must contain meaningful information.
+
+Do not populate the evidence panel with generic text that could be used for any scenario.
+
+Evidence should be stored as structured data associated with the relevant scenario.
+
+For example, a scenario could include:
+
+{
+  "id": "school-claim-01",
+  "category": "rumor",
+  "claim": "A fictional school will close tomorrow because of an emergency.",
+  "verdict": "unverified",
+  "evidence": [
+    {
+      "type": "source",
+      "title": "Original source",
+      "content": "The message comes from an unidentified account."
+    },
+    {
+      "type": "corroboration",
+      "title": "Independent confirmation",
+      "content": "No independent confirmation is provided in this scenario."
+    }
+  ]
+}
+
+This is an illustrative data structure. Build a complete, valid schema suited to the actual implementation.
+
+## 7.5 Meaningful decisions
+
+Do not reduce every scenario to a binary TRUE/FALSE guessing game.
+
+Some questions should ask:
+
+- Is this claim adequately supported?
+- What should you check next?
+- Is this image being presented without enough context?
+- Which source is more reliable?
+- Is there enough evidence to share this information?
+- What is the most responsible action?
+- What should you do when you cannot verify the claim?
+
+The correct response must be grounded in the scenario's supplied evidence.
+
+Where evidence is insufficient, the correct response should acknowledge uncertainty.
+
+The game must never claim certainty when the available information does not justify it.
+
+## 7.6 Answer feedback
+
+After a player submits an answer:
+
+- Prevent duplicate submissions.
+- Record the chosen answer.
+- Evaluate the answer against the scenario.
+- Calculate the score.
+- Display a short explanation.
+- Identify the key clue or clues.
+- Explain why the selected action was appropriate or inappropriate.
+- Update the appropriate statistics.
+- Provide a clear way to continue.
+
+Feedback must be brief enough for a timed round.
+
+In Standard Mode, the feedback state should not create an unfairly long forced wait.
+
+Use a short automatic transition or a clearly labeled CONTINUE button.
+
+The transition must respect the remaining round time.
+
+If the timer expires during feedback, end the round correctly without showing the next scenario.
+
+## 7.7 Timer behavior
+
+The timer must be accurate and robust.
+
+Requirements:
+
+- Begin at 60 seconds.
+- Count down in real time.
+- Display the remaining seconds clearly.
+- Use a single authoritative timer state.
+- Do not decrement time by assuming that every callback runs exactly once per second.
+- Calculate elapsed time using timestamps or an equivalent robust mechanism.
+- Avoid accumulating timing errors after tab suspension.
+- Prevent negative timer values.
+- Trigger the end-of-round process exactly once.
+- Clear scheduled callbacks when the round ends or the component is unmounted.
+- Prevent duplicate timer creation on rerender.
+- Prevent a paused round from continuing to count down.
+- Correctly handle background-tab throttling.
+- Do not award additional time because a user opens the evidence panel.
+
+When the timer reaches 10 seconds, introduce a subtle visual urgency cue.
+
+At 5 seconds, make the countdown more prominent without flashing aggressively.
+
+At zero, stop accepting answers and transition to results.
+
+If the player is reviewing evidence when time expires, the round should end consistently and safely.
+
+Do not allow a late answer to modify a completed round.
+
+## 7.8 Pause behavior
+
+Standard Mode must support pausing.
+
+When paused:
+- Freeze the remaining gameplay time.
+- Prevent answer submissions.
+- Prevent score changes.
+- Display a pause overlay.
+- Offer RESUME, RESTART, and EXIT TO MENU.
+- Ask for confirmation before destructive actions.
+
+When resumed:
+- Continue with the remaining time.
+- Preserve the current scenario.
+- Preserve investigated clues.
+- Preserve the current score and streak.
+
+Ensure that pausing cannot be exploited to duplicate points or reset the timer.
+
+---
+
+# 8. SCORING SYSTEM
+
+Create a transparent scoring system.
+
+Players should understand why they received or lost points.
+
+Use the following baseline:
+
+- Correct, evidence-supported decision: +100 points.
+- Partially correct decision in a scenario with legitimate uncertainty: +50 points where explicitly justified by the scoring rules.
+- Incorrect decision: 0 points.
+- Correct use of a meaningful evidence clue: up to +25 bonus points per scenario, with a clear per-scenario cap.
+- Correct consecutive decisions: a streak multiplier or bonus, with a defined maximum.
+- Responsible abstention from sharing: reward this when the scenario supports that decision.
+- Unnecessary reporting: do not reward it automatically.
+
+Do not subtract points simply because a player encountered a genuinely ambiguous scenario.
+
+Avoid double-counting investigation bonuses.
+
+Set a maximum possible score or clearly define the score formula.
+
+The UI must communicate the scoring rules in the tutorial or a concise help panel.
+
+## 8.1 Score calculation
+
+Implement scoring as a dedicated, testable function.
+
+For example:
+
+calculateScenarioScore({
+  answer,
+  scenario,
+  investigatedClues,
+  currentStreak,
+  difficulty
+})
+
+The actual function signature may differ, but its responsibilities must remain clear.
+
+Use deterministic scoring for the same scenario and actions.
+
+Do not use random score bonuses.
+
+Keep game rules separate from visual components.
+
+## 8.2 Streak system
+
+Track consecutive correct decisions.
+
+Display the current streak clearly.
+
+Provide subtle visual feedback when a streak increases.
+
+Reset the streak when the player makes an incorrect decision, unless the scoring rules explicitly define an uncertainty exception.
+
+Do not let repeatedly opening evidence create streak points.
+
+## 8.3 Results metrics
+
+Track at least:
+
+- Total score.
+- Correct decisions.
+- Incorrect decisions.
+- Number of scenarios attempted.
+- Number of clues investigated.
+- Best streak.
+- Elapsed time.
+- Average response time where available.
+- Category performance.
+- Personal best.
+- Difficulty.
+- Game mode.
+
+All metrics must be calculated from actual events during the round.
+
+If a metric cannot be calculated reliably, omit it rather than inventing a value.
+
+---
+
+# 9. SCENARIO CONTENT SYSTEM
+
+Build a reusable scenario library.
+
+Do not hardcode all scenarios directly into the gameplay interface.
+
+Create structured scenario data and a scenario-selection system.
+
+Each scenario should contain:
+
+- Unique ID.
+- Category.
+- Difficulty.
+- Fictional source identity.
+- Timestamp.
+- Claim or post content.
+- Supporting visual asset or graphic configuration.
+- Correct interpretation.
+- Correct action or acceptable actions.
+- Evidence list.
+- Explanation.
+- Learning takeaway.
+- Answer options.
+- Scoring configuration.
+- Optional contextual information.
+- Tags identifying relevant misinformation techniques.
+
+Use a stable schema with type checking where supported.
+
+Validate scenarios before they enter a round.
+
+If a scenario is invalid or incomplete, skip it safely and log the issue during development.
+
+Do not allow malformed scenario data to crash the game.
+
+## 9.1 Required scenario categories
+
+Implement at least these five categories.
+
+A. FAKE NEWS AND FABRICATED CLAIMS
+
+Examples:
+- An invented breaking-news headline.
+- A fictional announcement attributed to an unidentified source.
+- A dramatic claim with no supporting evidence.
+- A fabricated quote presented as authentic.
+
+B. MISLEADING CONTEXT
+
+Examples:
+- A genuine photograph described as if it came from a different event.
+- An old announcement presented as new.
+- A cropped screenshot that omits important context.
+- A statement that is technically accurate but presented in a misleading way.
+
+C. RUMOURS AND GOSSIP
+
+Examples:
+- A fictional student rumour spreading through a group chat.
+- An unsupported claim about a school event.
+- An anonymous account making an allegation without evidence.
+- A message urging people to forward a claim before it is checked.
+
+D. FAKE PRODUCTS AND ONLINE SHOPPING CLAIMS
+
+Examples:
+- A suspicious online listing promising unrealistic product performance.
+- Reviews that all use suspiciously similar wording.
+- An unclear seller identity.
+- A product image that does not substantiate the seller's claims.
+
+E. AI-GENERATED OR MANIPULATED MEDIA
+
+Examples:
+- A synthetic image presented as authentic evidence.
+- A fabricated screenshot.
+- A quotation attributed to a fictional public figure without supporting evidence.
+- An image whose origin cannot be established from the information provided.
+
+Do not teach that visual inspection alone can reliably prove an image is AI-generated.
+
+Teach players to examine provenance, source context, corroboration, and uncertainty.
+
+## 9.2 Minimum content requirements
+
+Create at least 30 complete scenarios:
+
+- 6 fake-news scenarios.
+- 6 misleading-context scenarios.
+- 6 rumour scenarios.
+- 6 fake-product scenarios.
+- 6 manipulated-media scenarios.
+
+Include a meaningful mixture of Easy, Normal, and Hard difficulty.
+
+Every scenario must include enough information to make the intended answer defensible.
+
+Do not satisfy the count by duplicating the same scenario with slightly different wording.
+
+At least some scenarios should have a supported or genuine claim.
+
+At least some should be inconclusive.
+
+At least some should require a responsible decision other than immediately reporting a post.
+
+Each scenario must have a useful explanation and a concrete learning takeaway.
+
+## 9.3 Fictional content and safety
+
+Use fictional names, fictional accounts, fictional schools, and fictional brands.
+
+Do not create damaging allegations about identifiable real people.
+
+Do not use real breaking-news events as fabricated examples.
+
+Do not create panic-inducing emergency messages that could be mistaken for actual alerts.
+
+Clearly establish that scenarios are educational simulations.
+
+Do not reproduce real personal information.
+
+Do not require players to enter their real names, school names, phone numbers, or social accounts.
+
+## 9.4 Scenario diversity
+
+Vary:
+- Post length.
+- Evidence complexity.
+- Source reliability.
+- Confidence of the original claim.
+- Visual presentation.
+- Correct response.
+- Difficulty.
+- Topic.
+- Time pressure.
+- Whether further investigation changes the initial interpretation.
+
+Avoid repeating the same question format for every scenario.
+
+Use a mixture of short headlines, social posts, message screenshots recreated as fictional interface elements, product listings, and evidence comparisons.
+
+Do not rely on external images to make the core gameplay work.
+
+Use CSS-generated post illustrations, simple original vector graphics, and locally available assets wherever possible.
+
+---
+
+# 10. SCENARIO EXAMPLE SPECIFICATIONS
+
+Use these examples as guidance for the quality and structure of the actual scenario library.
+
+Do not copy them thirty times with different names.
+
+## Example A: The Sudden School Closure
+
+A fictional group-chat message claims that a fictional school will close tomorrow because of an emergency.
+
+Evidence:
+- The sender is unknown.
+- The message includes no original announcement.
+- No independently confirmed source is supplied in the scenario.
+
+The player should recognize that the claim is unverified.
+
+The game should reward avoiding amplification and checking an appropriate authoritative source.
+
+It should not assert that the school is definitely open or definitely closed.
+
+Learning takeaway: An alarming message is not confirmation.
+
+## Example B: The Old Photograph
+
+A fictional post presents a photograph as evidence of something that happened today.
+
+The supplied evidence indicates that the photograph was published years earlier in an unrelated context.
+
+The player should identify the mismatch between the caption and the image's provenance.
+
+Learning takeaway: A real image can still be used to mislead.
+
+## Example C: The Miracle Product
+
+A fictional online seller claims that a low-cost electronic accessory delivers an extraordinary performance improvement.
+
+The listing contains exaggerated claims and does not provide supporting specifications or credible independent testing.
+
+The player should question the claim and seek evidence rather than assuming that the product is definitely fake.
+
+Learning takeaway: Unsupported marketing claims are not proof of performance.
+
+## Example D: The Fabricated Quote
+
+A fictional post attributes a dramatic quotation to a fictional public figure.
+
+The post contains no original recording, transcript, or reliable corroboration.
+
+The correct decision should prioritize verification and avoiding unsupported attribution.
+
+Learning takeaway: A quotation card is not the same as a verifiable original source.
+
+## Example E: The Genuine but Misleading Headline
+
+A fictional headline contains a technically accurate statement but omits context that substantially changes its interpretation.
+
+The player must examine the full context before deciding whether the post is misleading.
+
+Learning takeaway: Accuracy depends on context, not just individual words.
+
+## Example F: The Uncertain Image
+
+A fictional post contains an image that looks unusual.
+
+There is no reliable information establishing its origin.
+
+The correct response should acknowledge that the image cannot be conclusively authenticated from appearance alone.
+
+Learning takeaway: Suspicion is a reason to investigate, not proof of fabrication.
+
+For every scenario, make the answer key, evidence, scoring, and explanation agree with one another.
+
+---
+
+# 11. GAMEPLAY INTERFACE
+
+The gameplay screen must prioritize the information needed for quick decisions.
+
+## 11.1 Desktop layout
+
+Design a balanced three-part composition where screen size permits:
+
+LEFT:
+- Compact round progress.
+- Category indicator.
+- Optional small list of recent scenarios.
+
+CENTER:
+- Main fictional social post.
+- Headline.
+- Main claim.
+- Relevant visual content.
+- Investigation action.
+- Answer buttons.
+
+RIGHT:
+- Countdown.
+- Score.
+- Streak.
+- Optional evidence summary.
+
+Do not force a rigid three-column layout on smaller screens.
+
+The central post must remain the visual focus.
+
+The timer must be easy to locate without dominating the entire screen.
+
+## 11.2 Mobile layout
+
+On mobile:
+- Stack content vertically.
+- Keep the timer near the top.
+- Keep the current post readable.
+- Make answer buttons large enough to tap.
+- Make evidence panels easy to open and close.
+- Avoid horizontal overflow.
+- Keep primary actions within a comfortable reach.
+- Ensure the results screen remains readable without excessive scrolling.
+
+No essential functionality may be desktop-only.
+
+## 11.3 Post card
+
+Design the post card as a recognizable simulated social-media item.
+
+Include:
+- Account avatar.
+- Account display name.
+- Fictional handle.
+- Timestamp.
+- Optional category or context label.
+- Post text.
+- Image or graphic if relevant.
+- Simulated engagement counts.
+- Investigation affordance.
+
+Keep the simulated interface distinct from any real platform's exact branding.
+
+Engagement counts should be decorative context, not proof of reliability.
+
+## 11.4 Answer buttons
+
+Make VERIFY, SHARE, and FLAG visually distinct.
+
+Use clear labels and icons.
+
+Provide hover, focus, pressed, disabled, and selected states.
+
+Use accessible text labels even if icons are present.
+
+Buttons must not submit the same answer more than once.
+
+If a button is unavailable in a particular scenario, disable it with a clear explanation or use a scenario-specific answer interface.
+
+Do not present a disabled button that looks fully active.
+
+## 11.5 Progress indicators
+
+Display:
+- Time remaining.
+- Scenarios attempted.
+- Current score.
+- Current streak.
+
+Do not display fabricated percentages or progress estimates.
+
+Progress must be derived from actual round state.
+
+---
+
+# 12. EVIDENCE PANEL DESIGN
+
+Create a polished evidence investigation interface.
+
+The panel may be a modal, drawer, or responsive overlay depending on screen size.
+
+It should contain:
+- Evidence title.
+- Source description.
+- Publication or context information.
+- Relevant evidence.
+- Optional evidence reliability label.
+- A short explanation of why the evidence matters.
+- A clear close or return action.
+
+Each evidence item should be visually distinct.
+
+Do not automatically reveal the correct answer merely because the panel is opened.
+
+Allow the player to investigate individual clues.
+
+Track which clues have actually been opened.
+
+If an evidence item includes a simulated source link, it must be clearly labeled as fictional or simulated and must not pretend to be a real external source.
+
+Never open arbitrary external websites during timed gameplay.
+
+The game should remain self-contained.
+
+In Standard Mode, opening evidence must preserve the current scenario and remaining time.
+
+In Practice Mode, evidence can include more detailed educational context.
+
+The evidence panel must work with keyboard navigation and screen readers.
+
+---
+
+# 13. ANSWER FEEDBACK AND EDUCATIONAL DESIGN
+
+After an answer, show a concise feedback interface.
+
+Required information:
+- Result status.
+- Points earned.
+- Correct interpretation.
+- Key evidence.
+- One practical lesson.
+
+Example structure:
+
+"GOOD CATCH"
+
+"You checked the original context instead of trusting the caption."
+
+"+125 POINTS"
+
+"WHY IT MATTERS"
+
+"An authentic image can still be misleading when it is reused in an unrelated context."
+
+"CONTINUE"
+
+The wording must adapt to the actual scenario and the selected action.
+
+Do not show praise when the player made an incorrect choice.
+
+Incorrect answers should be handled constructively.
+
+For example:
+
+"NOT QUITE"
+
+"The post does not provide enough evidence to support its claim."
+
+"WHAT TO CHECK"
+
+"Look for an original source and independent corroboration before sharing."
+
+Avoid insulting the player or framing mistakes as moral failures.
+
+The educational goal is to improve judgment.
+
+---
+
+# 14. RESULTS SCREEN
+
+When a round ends, display a polished, satisfying results screen.
+
+Include:
+
+- Final score.
+- Correct decisions.
+- Incorrect decisions.
+- Number of scenarios attempted.
+- Number of clues investigated.
+- Best streak.
+- Time used.
+- Accuracy, when a meaningful denominator exists.
+- Category breakdown, where enough data exists.
+- Personal-best comparison.
+- Short personalized feedback based on the player's actual results.
+
+Example feedback categories:
+
+"CAREFUL INVESTIGATOR"
+
+The player frequently examined evidence before making decisions.
+
+"FAST SCROLLER"
+
+The player made quick decisions but missed opportunities to investigate.
+
+"CONTEXT DETECTIVE"
+
+The player performed particularly well on misleading-context scenarios.
+
+"STILL INVESTIGATING"
+
+The player showed mixed performance and has opportunities to improve.
+
+These labels must be determined by actual performance metrics.
+
+Do not assign labels randomly.
+
+## 14.1 Results actions
+
+Provide working buttons for:
+
+- PLAY AGAIN.
+- REVIEW MISTAKES.
+- VIEW STATISTICS.
+- HOME.
+
+PLAY AGAIN starts a fresh round with a fresh timer.
+
+REVIEW MISTAKES opens the actual scenarios answered incorrectly, including the player's answer and the explanation.
+
+VIEW STATISTICS opens the statistics screen.
+
+HOME returns to the title screen.
+
+Ensure all actions preserve appropriate records.
+
+## 14.2 Score presentation
+
+Animate the final score briefly.
+
+Do not make the player wait through a long animation before accessing the results.
+
+Use a restrained celebratory effect for strong performance.
+
+Avoid confetti that reduces readability or runs indefinitely.
+
+---
+
+# 15. STATISTICS AND ACHIEVEMENTS
+
+Implement local statistics.
+
+Track:
+- Total Standard Mode rounds.
+- Total Practice Mode scenarios completed.
+- Highest Standard Mode score.
+- Average score.
+- Total correct decisions.
+- Total incorrect decisions.
+- Total clues investigated.
+- Best streak.
+- Category-level performance.
+- Recently earned achievements.
+
+Use actual recorded data.
+
+## 15.1 Achievements
+
+Create a small set of meaningful achievements.
+
+Examples:
+
+FIRST CHECK
+Complete your first investigation.
+
+SOURCE SEEKER
+Investigate at least ten evidence clues.
+
+CONTEXT MATTERS
+Correctly identify several misleading-context scenarios.
+
+STEADY HAND
+Complete a round without an incorrect decision.
+
+RUMOUR CONTROL
+Correctly handle several rumour scenarios.
+
+REPEAT PLAYER
+Complete five Standard Mode rounds.
+
+Achievements must unlock based on real events.
+
+Do not display locked achievements as completed.
+
+Do not award achievements twice unless the system intentionally tracks repeatable milestones.
+
+## 15.2 Statistics reset
+
+Provide a RESET STATISTICS action in settings.
+
+Require explicit confirmation.
+
+The reset must remove the intended local records and achievement progress.
+
+Do not clear settings or tutorial preferences unless that behavior is clearly explained.
+
+Handle storage failures gracefully.
+
+---
+
+# 16. SETTINGS
+
+Create a fully functional settings screen.
+
+Required settings:
+
+## Audio
+- Sound effects on/off.
+- Master volume where applicable.
+
+## Accessibility
+- Reduced motion.
+- High-contrast option.
+- Text size adjustment where practical.
+- Optional non-color-only status indicators.
+
+## Gameplay
+- Default difficulty.
+- Default mode.
+- Confirmation before exiting an active round.
+- Tutorial replay.
+
+## Data
+- Reset statistics.
+- Reset game preferences, with confirmation.
+
+Every setting must have a real effect.
+
+Persist appropriate preferences locally.
+
+If audio is implemented, use short original synthesized tones or locally available assets.
+
+Do not depend on external music services.
+
+Do not play audio automatically before user interaction where browser restrictions prohibit it.
+
+If the application cannot implement a particular audio control reliably, omit the nonfunctional control rather than displaying a fake setting.
+
+## Settings persistence
+
+Use a small, versioned local persistence layer.
+
+Separate game preferences from player statistics.
+
+Validate data when reading stored records.
+
+If stored data is malformed or belongs to an unsupported version, recover safely.
+
+Never let invalid local data crash the application.
+
+Provide reasonable defaults.
+
+---
+
+# 17. DATA PERSISTENCE AND STATE MANAGEMENT
+
+Use a clean and maintainable state architecture.
+
+Separate:
+- Current screen.
+- Selected mode.
+- Selected difficulty.
+- Current round.
+- Timer state.
+- Current scenario.
+- Investigation state.
+- Answer state.
+- Score state.
+- Feedback state.
+- Player statistics.
+- Achievement state.
+- Settings.
+
+Avoid maintaining multiple conflicting copies of the same score or timer.
+
+Create a single authoritative source of truth for each important piece of state.
+
+Use reusable functions or hooks for:
+- Round initialization.
+- Scenario selection.
+- Answer evaluation.
+- Score calculation.
+- Timer management.
+- Pause and resume.
+- Round completion.
+- Statistics updates.
+- Persistence.
+
+Use localStorage or an equivalent browser-supported mechanism for non-sensitive local preferences and records.
+
+Do not store passwords, personal identifiers, or sensitive information.
+
+The game should remain playable if persistence is unavailable.
+
+If localStorage fails:
+- Continue the current session.
+- Show a concise nonblocking warning only if necessary.
+- Avoid repeated error messages.
+- Do not crash.
+
+Do not introduce a backend database, authentication system, or cloud account requirement unless the current environment genuinely requires it.
+
+The base experience must work locally.
+
+---
+
+# 18. TECHNICAL IMPLEMENTATION
+
+## 18.1 Project setup
+
+Inspect the existing application files and framework.
+
+Reuse working infrastructure.
+
+If the project is empty, use the framework best supported by the current app-building environment.
+
+For a React-based environment, use:
+- React.
+- TypeScript if supported.
+- CSS modules, standard CSS, or the project's existing styling solution.
+- Reusable components.
+- A structured scenario-data module.
+- A dedicated game-logic module.
+- A dedicated persistence module.
+
+Do not migrate the entire project to another framework without a compelling technical reason.
+
+Do not overwrite unrelated user files.
+
+## 18.2 Suggested architecture
+
+Use a structure similar to the following where compatible with the environment:
+
+src/
+  app/
+    App
+    navigation
+  components/
+    Button
+    Modal
+    Timer
+    ScoreDisplay
+    PostCard
+    EvidencePanel
+    FeedbackPanel
+  screens/
+    HomeScreen
+    ModeSelectionScreen
+    TutorialScreen
+    GameScreen
+    ResultsScreen
+    StatisticsScreen
+    SettingsScreen
+    AboutScreen
+  game/
+    gameTypes
+    gameReducer
+    scoring
+    timer
+    scenarioSelector
+    validation
+  data/
+    scenarios
+    achievements
+  storage/
+    persistence
+  styles/
+    tokens
+    global
+    components
+
+This is a recommended organization, not a requirement to create meaningless files.
+
+Adapt the structure to the existing project.
+
+The actual code must remain coherent and runnable.
+
+## 18.3 Component quality
+
+Use reusable components where they genuinely improve maintainability.
+
+Keep business logic out of large visual components.
+
+Avoid one enormous component that handles the entire game.
+
+Avoid unnecessary abstraction that makes the project harder to understand.
+
+Use descriptive names.
+
+Add types to important data structures.
+
+Handle errors intentionally.
+
+## 18.4 Timer correctness
+
+Use an appropriate timing mechanism that measures actual elapsed time.
+
+Avoid decrementing a counter blindly every second.
+
+The timer should derive the remaining time from a reliable end timestamp or equivalent elapsed-time calculation.
+
+Pause and resume must adjust timing correctly.
+
+Ensure that completion occurs once.
+
+Avoid stale closures, duplicate intervals, and state updates after unmounting.
+
+## 18.5 Responsive layout
+
+Use responsive CSS and sensible breakpoints.
+
+Support:
+- Narrow mobile screens.
+- Larger mobile screens.
+- Tablets.
+- Standard laptop displays.
+- Wide desktop displays.
+
+Avoid horizontal scrolling unless intentionally required by a specific interface.
+
+Prevent long headlines and usernames from breaking the layout.
+
+Use flexible dimensions and content-aware layouts.
+
+## 18.6 Performance
+
+Keep the application lightweight.
+
+Avoid unnecessary large dependencies.
+
+Avoid excessive rerendering during the countdown.
+
+Do not create a new timer or event listener on every render.
+
+Avoid continuously running animations when their screen is hidden.
+
+Use efficient state updates.
+
+The core game must not require a remote API call to answer a scenario.
+
+---
+
+# 19. ACCESSIBILITY
+
+Accessibility is a functional requirement, not a final decorative improvement.
+
+Implement:
+- Semantic HTML.
+- Keyboard-accessible navigation.
+- Visible focus indicators.
+- Accessible button labels.
+- Appropriate heading hierarchy.
+- Sufficient contrast.
+- Meaningful status text.
+- Accessible dialogs and overlays.
+- Focus management when modals open and close.
+- Keyboard support for closing appropriate dialogs.
+- Reduced-motion support.
+- Clear feedback that does not rely only on color.
+- Appropriate touch targets.
+- Screen-reader-friendly countdown and status announcements.
+
+Do not announce every timer tick to a screen reader.
+
+Use sensible announcements at meaningful intervals and when the round ends.
+
+Avoid keyboard traps.
+
+Ensure that focus does not disappear behind a modal.
+
+If a dialog is closed, return focus to its initiating control where appropriate.
+
+Make the game playable without a mouse.
+
+---
+
+# 20. RESPONSIBLE EDUCATIONAL CONTENT
+
+This application teaches digital safety and misinformation awareness.
+
+Its educational framing must be accurate and responsible.
+
+Teach the following principles through actual scenarios:
+
+1. Check the original source.
+2. Verify the publication date.
+3. Look for independent corroboration.
+4. Distinguish evidence from opinion.
+5. Examine whether a headline accurately represents the full information.
+6. Recognize when a real image is used out of context.
+7. Be cautious with anonymous claims.
+8. Question extraordinary claims that lack supporting evidence.
+9. Avoid forwarding unverified rumours.
+10. Understand that engagement and popularity do not establish truth.
+11. Recognize that AI-generated media may require provenance checks.
+12. Avoid assuming that visual appearance alone proves authenticity.
+13. Understand that absence of evidence is not always evidence of falsity.
+14. Be comfortable saying, "I don't have enough information to know."
+15. Correct mistakes responsibly when reliable evidence becomes available.
+
+The game must not:
+- Teach blanket distrust of all media.
+- Treat every unfamiliar source as malicious.
+- Encourage harassment of people who share incorrect information.
+- Encourage spreading unverified claims for entertainment.
+- Reward false accusations.
+- Encourage users to expose personal information.
+- Present fictional content as real breaking news.
+- Claim that a simple checklist guarantees truth.
+
+Where appropriate, teach players to consult relevant authoritative sources or qualified professionals for consequential claims.
+
+The game is an educational tool, not a universal fact-checking authority.
+
+---
+
+# 21. ABOUT SCREEN
+
+Include a concise About screen explaining the purpose of the application.
+
+Suggested content:
+
+"VIRAL IN 60 SECONDS is an educational game about misinformation and responsible information sharing.
+
+Investigate fictional online posts, evaluate evidence, and practise making better decisions before sharing information.
+
+The scenarios are simulations designed for learning. They do not constitute live fact-checking or establish the truth of real-world claims."
+
+Include the game title and tagline.
+
+Do not invent institutional endorsements, certifications, partnerships, or awards.
+
+Do not claim that the game is endorsed by Google, a school, a government agency, or a digital safety organization unless that endorsement has actually been established.
+
+---
+
+# 22. VISUAL POLISH CHECKLIST
+
+After the functional application is complete, refine the visual experience.
+
+Check the following:
+
+- The title screen has a recognizable identity.
+- The title is spelled correctly.
+- The primary CTA is immediately obvious.
+- Typography is consistent.
+- Icons share a coherent visual style.
+- Spacing is consistent.
+- The gameplay card is the main focus.
+- The timer is easy to locate.
+- The score is legible.
+- Answer buttons are visually distinct.
+- Evidence panels are easy to scan.
+- Feedback states feel satisfying.
+- Results feel like a proper game ending.
+- Settings look like part of the same application.
+- No screen looks like an unrelated template.
+- No unnecessary blank panels remain.
+- No overlapping elements appear at common viewport sizes.
+- No horizontal overflow appears on mobile.
+- Long content wraps safely.
+- Loading states are purposeful.
+- Empty states are designed.
+- Error states are understandable.
+- Hover and focus states are implemented.
+- Disabled controls are visually distinguishable.
+- Reduced-motion preferences are respected.
+- The application remains usable without decorative imagery.
+
+Use subtle sound design if supported.
+
+Do not add sound merely to make the game appear more complete.
+
+The game must remain enjoyable with audio disabled.
+
+---
+
+# 23. TESTING AND QUALITY ASSURANCE
+
+Do not consider the application complete immediately after the first successful render.
+
+Run a structured QA pass.
+
+Use the project's available test framework where possible.
+
+If automated browser testing is available, use it for interaction checks.
+
+If it is unavailable, use the available runtime and browser preview to inspect the application and exercise the controls manually.
+
+Do not fabricate test results.
+
+## 23.1 Build checks
+
+Verify:
+- The application starts.
+- The application builds successfully where build commands are available.
+- There are no blocking compilation errors.
+- There are no missing imports.
+- There are no unresolved component references.
+- There are no obvious console errors during normal use.
+- All required screens render.
+- Scenario data loads correctly.
+- The application can start without a remote API key.
+
+## 23.2 Navigation tests
+
+Test:
+- Home to mode selection.
+- Home to settings.
+- Home to tutorial.
+- Home to statistics.
+- Home to About.
+- Mode selection to gameplay.
+- Gameplay to pause.
+- Pause to resume.
+- Pause to restart.
+- Pause to home.
+- Gameplay to results.
+- Results to play again.
+- Results to mistake review.
+- Results to statistics.
+- Results to home.
+
+Verify that each action reaches the correct destination.
+
+## 23.3 Gameplay tests
+
+Test at least the following:
+
+TEST 1: Start a Standard Mode round.
+
+Expected: A fresh round begins with 60 seconds and a valid scenario.
+
+TEST 2: Submit a correct answer.
+
+Expected: The answer is accepted once, the score updates correctly, and the appropriate feedback appears.
+
+TEST 3: Submit an incorrect answer.
+
+Expected: The incorrect decision is recorded and useful feedback appears.
+
+TEST 4: Open evidence.
+
+Expected: The evidence panel opens with scenario-specific content.
+
+TEST 5: Close evidence.
+
+Expected: The same scenario and remaining time are preserved.
+
+TEST 6: Pause the round.
+
+Expected: The timer stops and answers cannot be submitted.
+
+TEST 7: Resume the round.
+
+Expected: The timer continues from the preserved remaining time.
+
+TEST 8: Restart the round.
+
+Expected: The score, streak, scenario state, and timer reset correctly.
+
+TEST 9: Exit to home.
+
+Expected: The active timer is stopped and no background round remains active.
+
+TEST 10: Allow the timer to reach zero.
+
+Expected: The round ends once and results appear.
+
+TEST 11: Attempt to submit an answer after the round ends.
+
+Expected: No score or statistics change.
+
+TEST 12: Double-click an answer button.
+
+Expected: Only one answer is recorded.
+
+TEST 13: Complete a round.
+
+Expected: Results accurately reflect the events of that round.
+
+TEST 14: Play again.
+
+Expected: A new round starts without duplicate timers or inherited score.
+
+TEST 15: Use Practice Mode.
+
+Expected: The scenario is playable without a countdown and Practice Mode does not alter the Standard Mode personal best.
+
+TEST 16: Refresh the application.
+
+Expected: The app returns to a valid screen and does not resume an expired or duplicated timer.
+
+TEST 17: Open and close settings.
+
+Expected: Preferences persist and settings controls perform their intended actions.
+
+TEST 18: Reset statistics.
+
+Expected: Statistics are reset only after confirmation.
+
+TEST 19: Disable local storage or simulate a storage failure.
+
+Expected: The game remains playable for the current session.
+
+TEST 20: Finish an intentionally ambiguous scenario.
+
+Expected: The game does not claim certainty beyond what the evidence supports.
+
+## 23.4 Timer-specific tests
+
+Verify:
+- The countdown begins once.
+- It does not accelerate after repeated rerenders.
+- It pauses correctly.
+- It resumes correctly.
+- It does not become negative.
+- It cannot complete the round twice.
+- It stops when the player exits.
+- It stops when the round finishes.
+- It does not continue behind an inactive screen.
+- It handles delayed browser callbacks safely.
+
+Use controllable clocks or fake timers in automated tests where supported.
+
+Do not wait a full minute for every timer test if a reliable test clock is available.
+
+## 23.5 Scoring tests
+
+Create unit tests for:
+- Correct answers.
+- Incorrect answers.
+- Partial-credit answers.
+- Investigation bonuses.
+- Maximum bonus caps.
+- Streak increases.
+- Streak resets.
+- Round completion.
+- Repeated submissions.
+- Score persistence.
+- Practice Mode separation.
+
+The scoring system must be deterministic.
+
+## 23.6 Content validation tests
+
+Check every scenario for:
+- Unique ID.
+- Valid category.
+- Valid difficulty.
+- Complete question.
+- Complete answer options.
+- Valid intended answer.
+- Nonempty evidence.
+- Nonempty explanation.
+- Nonempty learning takeaway.
+- Consistent scoring rules.
+
+Detect missing or contradictory content.
+
+Do not silently substitute a generic explanation for a missing scenario explanation.
+
+## 23.7 Responsive tests
+
+Inspect:
+- A narrow mobile viewport around 360 pixels wide.
+- A standard mobile viewport around 390 pixels wide.
+- A tablet viewport around 768 pixels wide.
+- A laptop viewport around 1366 pixels wide.
+- A wide desktop viewport around 1920 pixels wide.
+
+Check all major screens.
+
+Pay special attention to gameplay, evidence panels, results, and settings.
+
+Verify that text does not overflow, buttons remain usable, and the layout adapts sensibly.
+
+## 23.8 Accessibility tests
+
+Verify:
+- Keyboard navigation.
+- Focus visibility.
+- Modal focus management.
+- Readable contrast.
+- Accessible button names.
+- Reduced-motion behavior.
+- Screen-reader feedback.
+- Touch target sizes.
+- Non-color-only status indicators.
+
+Fix issues that materially interfere with use.
+
+---
+
+# 24. FAILURE HANDLING
+
+The application must fail gracefully.
+
+Handle:
+- Missing scenario data.
+- Invalid saved statistics.
+- Unsupported saved-data versions.
+- Storage failures.
+- Rapid repeated clicks.
+- Double submissions.
+- Unmounting during a countdown.
+- Leaving a round unexpectedly.
+- Restarting during feedback.
+- Pausing at the end of a round.
+- Timer expiry while evidence is open.
+- Timer expiry while feedback is displayed.
+- Empty statistics.
+- Incomplete scenario content.
+
+Use sensible fallback behavior.
+
+Avoid intrusive error alerts for recoverable problems.
+
+During development, log actionable errors to the console where appropriate.
+
+Do not expose unnecessary technical error details to ordinary players.
+
+---
+
+# 25. FINAL ACCEPTANCE CRITERIA
+
+The project is complete only when all essential criteria below have been implemented and verified as far as the available environment permits.
+
+FUNCTIONALITY:
+- A working home screen.
+- A working Standard Mode.
+- A working Practice Mode.
+- A functioning 60-second countdown.
+- Pause, resume, restart, and exit.
+- Scenario-specific evidence investigation.
+- Real answer evaluation.
+- Working scoring and streaks.
+- Immediate answer feedback.
+- A complete results screen.
+- Review of incorrect answers.
+- Persistent local statistics.
+- Working settings.
+- Responsive mobile and desktop layouts.
+
+CONTENT:
+- At least 30 distinct, structured scenarios.
+- Five required content categories.
+- Three difficulty levels.
+- Appropriate explanations.
+- Evidence-backed answer keys.
+- Supported, misleading, and uncertain claims.
+- Fictional educational examples.
+
+QUALITY:
+- Consistent visual design.
+- No broken primary buttons.
+- No dead navigation items.
+- No duplicate timers.
+- No duplicate scoring events.
+- No obvious overflow.
+- No placeholder screens in the main experience.
+- No invented test results.
+- No unnecessary API dependencies.
+- No misleading educational claims.
+
+ACCESSIBILITY:
+- Keyboard navigation.
+- Visible focus states.
+- Appropriate contrast.
+- Reduced-motion support.
+- Accessible feedback.
+- Responsive controls.
+
+Do not mark the project complete simply because the home screen renders.
+
+---
+
+# 26. IMPLEMENTATION WORKFLOW
+
+Follow this sequence.
+
+PHASE 1 — INSPECT
+
+Inspect the current project structure, framework, available dependencies, existing files, and current runtime.
+
+Identify any existing functionality that should be preserved.
+
+PHASE 2 — ESTABLISH THE FOUNDATION
+
+Create the design tokens, shared layout, navigation, screen structure, and core state model.
+
+Confirm that the application launches.
+
+PHASE 3 — BUILD THE GAME ENGINE
+
+Implement scenario selection, answer evaluation, scoring, timer management, pause/resume, and round completion.
+
+Keep gameplay rules separate from visual presentation.
+
+PHASE 4 — BUILD THE SCENARIO LIBRARY
+
+Create the complete structured content library.
+
+Validate scenario consistency and answer keys.
+
+PHASE 5 — BUILD THE INTERFACE
+
+Implement the home screen, gameplay screen, evidence panel, feedback interface, results, tutorial, statistics, settings, and About screen.
+
+PHASE 6 — CONNECT ALL INTERACTIONS
+
+Wire every button, menu, dialog, answer action, setting, and navigation path to real application behavior.
+
+Do not leave decorative controls pretending to be functional.
+
+PHASE 7 — IMPLEMENT PERSISTENCE
+
+Add robust local persistence for settings, statistics, and achievements.
+
+Handle storage failures safely.
+
+PHASE 8 — POLISH
+
+Refine typography, spacing, motion, feedback, responsiveness, and accessibility.
+
+PHASE 9 — TEST
+
+Run the available build checks, unit tests, interaction tests, timer tests, scoring tests, and responsive checks.
+
+Fix discovered defects.
+
+PHASE 10 — FINAL REVIEW
+
+Inspect the complete application as a player.
+
+Start a round, investigate evidence, make decisions, finish the round, review mistakes, change settings, restart, and play again.
+
+Confirm that the experience behaves coherently from beginning to end.
+
+Do not stop after the first screen or after implementing only the visual design.
+
+---
+
+# 27. FINAL EXECUTION INSTRUCTIONS
+
+Begin by inspecting the current project and identifying the available implementation environment.
+
+Then implement the application directly.
+
+Do not respond with a plan alone.
+
+Do not ask me to manually create every component.
+
+Do not provide only isolated code snippets.
+
+Do not replace the requested game with a static prototype.
+
+Make sensible implementation decisions where details are unspecified.
+
+Prioritize a complete, reliable core experience over unnecessary features.
+
+If the full project is too large to implement in one uninterrupted pass, complete it in coherent stages while preserving working code and maintaining a clear record of unfinished work.
+
+After each stage:
+- Verify that the application still launches.
+- Verify the functionality added in that stage.
+- Fix blocking regressions before proceeding.
+- Preserve completed functionality.
+- Do not claim untested functionality is working.
+
+If a requested capability is unavailable, explain the limitation and implement the best functional alternative.
+
+At the end, provide a concise implementation report stating:
+1. What was actually built.
+2. Which features are verified as working.
+3. Which tests were run and their actual results.
+4. Which known limitations remain.
+5. What, if anything, still requires manual verification.
+
+The final deliverable must be the actual working VIRAL IN 60 SECONDS application.
+
+**Build the game. Make it functional. Make it polished. Test it. Do not stop at a mockup.**

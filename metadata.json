@@ -1,0 +1,7 @@
+{
+  "name": "VIRAL IN 60 SECONDS",
+  "description": "A fast-paced digital safety game where every second counts and every share has consequences. Think fast. Check first. Share wisely.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+

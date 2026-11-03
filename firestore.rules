@@ -1,0 +1,123 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // 1. GLOBAL SAFETY NET (Default Deny Catch-All)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // 2. HARDENED REUSABLE PRIMITIVES
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // 3. VALIDATION HELPER: User Entity
+    function isValidUser(data) {
+      return data.keys().hasAll(['displayName', 'isAnonymous', 'createdAt'])
+        && data.keys().hasOnly(['displayName', 'isAnonymous', 'createdAt', 'lastActiveAt'])
+        && data.displayName is string && data.displayName.size() <= 60
+        && data.isAnonymous is bool
+        && data.createdAt is string && data.createdAt.size() <= 40
+        && (!('lastActiveAt' in data) || (data.lastActiveAt is string && data.lastActiveAt.size() <= 40));
+    }
+
+    // 4. VALIDATION HELPER: SurveyResult Entity
+    function isValidSurveyResult(data) {
+      return data.keys().hasAll([
+          'userId',
+          'score',
+          'accuracy',
+          'correctCount',
+          'totalQuestions',
+          'gameMode',
+          'difficulty',
+          'categoryBreakdown',
+          'createdAt'
+        ])
+        && data.keys().hasOnly([
+          'userId',
+          'playerName',
+          'score',
+          'accuracy',
+          'correctCount',
+          'totalQuestions',
+          'gameMode',
+          'difficulty',
+          'timeTakenSeconds',
+          'persona',
+          'categoryBreakdown',
+          'decisions',
+          'feedback',
+          'rating',
+          'feedbackSubmittedAt',
+          'createdAt'
+        ])
+        // Numeric Boundaries
+        && data.score is number && data.score >= 0 && data.score <= 1000000
+        && data.accuracy is number && data.accuracy >= 0 && data.accuracy <= 100
+        && data.correctCount is number && data.correctCount >= 0 && data.correctCount <= 50
+        && data.totalQuestions is number && data.totalQuestions >= 0 && data.totalQuestions <= 50
+        // Enums & String Boundaries
+        && data.userId is string && data.userId.size() <= 128
+        && data.gameMode in ['standard', 'practice', 'survey']
+        && data.difficulty in ['easy', 'normal', 'hard']
+        && data.categoryBreakdown is map
+        && data.createdAt is string && data.createdAt.size() <= 40
+        // Optional Fields Boundaries
+        && (!('playerName' in data) || (data.playerName is string && data.playerName.size() <= 50))
+        && (!('persona' in data) || (data.persona is string && data.persona.size() <= 64))
+        && (!('timeTakenSeconds' in data) || (data.timeTakenSeconds is number && data.timeTakenSeconds >= 0 && data.timeTakenSeconds <= 7200))
+        && (!('decisions' in data) || (data.decisions is list && data.decisions.size() <= 50))
+        && (!('feedback' in data) || (data.feedback is string && data.feedback.size() <= 500))
+        && (!('rating' in data) || (data.rating is number && data.rating >= 1 && data.rating <= 5))
+        && (!('feedbackSubmittedAt' in data) || (data.feedbackSubmittedAt is string && data.feedbackSubmittedAt.size() <= 40));
+    }
+
+    // 5. USER PROFILES (Strict PII Isolation)
+    match /users/{userId} {
+      allow get: if isValidId(userId) && isOwner(userId);
+      allow list: if false; // Block user enumeration
+      allow create, update: if isValidId(userId) && isOwner(userId) && isValidUser(incoming());
+      allow delete: if false; // Preserve audit trail
+    }
+
+    // 6. SURVEY & QUIZ RESULTS (Community Benchmarks & Anti-Tamper Laws)
+    match /survey_results/{resultId} {
+      // Allow read for single verification and bounded community survey analytics
+      allow get: if isValidId(resultId);
+      allow list: if true;
+
+      // Creation enforces strict schema integrity and bounds
+      allow create: if isValidId(resultId)
+                    && isValidSurveyResult(incoming())
+                    && (!isSignedIn() || incoming().userId == request.auth.uid);
+
+      // Terminal State Locking: Only post-quiz reflection (feedback/rating) can be updated
+      allow update: if isValidId(resultId)
+                    && (!isSignedIn() || existing().userId == request.auth.uid)
+                    && incoming().diff(existing()).affectedKeys().hasOnly(['feedback', 'rating', 'feedbackSubmittedAt'])
+                    && (!('feedback' in incoming()) || (incoming().feedback is string && incoming().feedback.size() <= 500))
+                    && (!('rating' in incoming()) || (incoming().rating is number && incoming().rating >= 1 && incoming().rating <= 5));
+
+      // Deletion is restricted to the verified owner
+      allow delete: if isValidId(resultId) && isSignedIn() && existing().userId == request.auth.uid;
+    }
+  }
+}

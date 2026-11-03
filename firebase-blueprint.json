@@ -1,0 +1,131 @@
+{
+  "entities": {
+    "SurveyResult": {
+      "title": "Survey Result",
+      "description": "A completed misinformation survey and quiz round",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Unique user session identifier",
+          "maxLength": 128
+        },
+        "playerName": {
+          "type": "string",
+          "description": "Display name of player",
+          "maxLength": 50
+        },
+        "score": {
+          "type": "number",
+          "description": "Final score earned in the round"
+        },
+        "accuracy": {
+          "type": "number",
+          "description": "Percentage accuracy (0 to 100)"
+        },
+        "correctCount": {
+          "type": "number",
+          "description": "Count of correct scenario evaluations"
+        },
+        "totalQuestions": {
+          "type": "number",
+          "description": "Total scenarios evaluated"
+        },
+        "gameMode": {
+          "type": "string",
+          "description": "Game mode identifier",
+          "enum": ["standard", "practice", "survey"]
+        },
+        "difficulty": {
+          "type": "string",
+          "description": "Difficulty level",
+          "enum": ["easy", "normal", "hard"]
+        },
+        "timeTakenSeconds": {
+          "type": "number",
+          "description": "Duration taken in seconds"
+        },
+        "persona": {
+          "type": "string",
+          "description": "Performance persona title",
+          "maxLength": 64
+        },
+        "categoryBreakdown": {
+          "type": "object",
+          "description": "Breakdown per misinformation category"
+        },
+        "decisions": {
+          "type": "array",
+          "description": "List of scenario answers"
+        },
+        "feedback": {
+          "type": "string",
+          "description": "Optional post-quiz feedback reflection",
+          "maxLength": 500
+        },
+        "rating": {
+          "type": "number",
+          "description": "Survey satisfaction star rating (1 to 5)"
+        },
+        "feedbackSubmittedAt": {
+          "type": "string",
+          "description": "Timestamp when reflection was submitted"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "ISO timestamp of creation"
+        }
+      },
+      "required": [
+        "userId",
+        "score",
+        "accuracy",
+        "correctCount",
+        "totalQuestions",
+        "gameMode",
+        "difficulty",
+        "categoryBreakdown",
+        "createdAt"
+      ]
+    },
+    "User": {
+      "title": "User Profile",
+      "description": "Individual user account and private session",
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "User display name",
+          "maxLength": 60
+        },
+        "isAnonymous": {
+          "type": "boolean",
+          "description": "Whether user is anonymous or authenticated"
+        },
+        "createdAt": {
+          "type": "string",
+          "description": "Account creation timestamp"
+        },
+        "lastActiveAt": {
+          "type": "string",
+          "description": "Timestamp of last active session"
+        }
+      },
+      "required": [
+        "displayName",
+        "isAnonymous",
+        "createdAt"
+      ]
+    }
+  },
+  "firestore": {
+    "/survey_results/{resultId}": {
+      "schema": "#/entities/SurveyResult",
+      "description": "Community misinformation survey submissions and quiz results"
+    },
+    "/users/{userId}": {
+      "schema": "#/entities/User",
+      "description": "Private user profile and session records"
+    }
+  }
+}

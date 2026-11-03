@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  :root {
+    --bg-canvas: #F8F9FA;
+    --bg-surface: #FFFFFF;
+    --bg-surface-elevated: #FFFFFF;
+    --bg-muted: #F1F5F9;
+    --border-subtle: #E2E8F0;
+    --border-medium: #CBD5E1;
+    
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    
+    --accent-blue: #2563EB;
+    --accent-blue-hover: #1D4ED8;
+    --accent-blue-dim: rgba(37, 99, 235, 0.08);
+    
+    --accent-red: #DC2626;
+    --accent-red-hover: #B91C1C;
+    --accent-red-dim: rgba(220, 38, 38, 0.08);
+    
+    --accent-green: #059669;
+    --accent-green-dim: rgba(5, 150, 105, 0.08);
+    
+    --accent-amber: #D97706;
+    --accent-amber-dim: rgba(217, 119, 6, 0.08);
+  }
+
+  .dark {
+    --bg-canvas: #18181B;
+    --bg-surface: #27272A;
+    --bg-surface-elevated: #323238;
+    --bg-muted: #2E2E33;
+    --border-subtle: #3F3F46;
+    --border-medium: #52525B;
+    
+    --text-primary: #F4F4F5;
+    --text-secondary: #D4D4D8;
+    --text-muted: #A1A1AA;
+    
+    --accent-blue: #3B82F6;
+    --accent-blue-hover: #60A5FA;
+    --accent-blue-dim: rgba(59, 130, 246, 0.15);
+    
+    --accent-red: #EF4444;
+    --accent-red-hover: #F87171;
+    --accent-red-dim: rgba(239, 68, 68, 0.15);
+    
+    --accent-green: #10B981;
+    --accent-green-dim: rgba(16, 185, 129, 0.15);
+    
+    --accent-amber: #F59E0B;
+    --accent-amber-dim: rgba(245, 158, 11, 0.15);
+  }
+
+  body {
+    background-color: var(--bg-canvas);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  h1, h2, h3, .font-display {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+  }
+
+  .font-mono-numbers {
+    font-family: 'JetBrains Mono', ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Warm, gentle human background with soft editorial light */
+.human-app-bg {
+  background-color: #F8F9FA;
+  background-image: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.03) 0%, transparent 60%);
+}
+
+.dark .human-app-bg {
+  background-color: #18181B;
+  background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.04) 0%, transparent 60%);
+}
+
+/* High contrast readability rules */
+.contrast-125 {
+  filter: contrast(1.2);
+}
+
+/* Clean, friendly scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 9999px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background: #52525B;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
